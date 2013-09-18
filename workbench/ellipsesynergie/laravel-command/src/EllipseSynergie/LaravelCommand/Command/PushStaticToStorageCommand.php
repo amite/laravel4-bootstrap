@@ -1,0 +1,148 @@
+<?php
+
+use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputArgument;
+
+class PushStaticToStorageCommand extends Command {
+
+	/**
+	 * The console command name.
+	 *
+	 * @var string
+	 */
+	protected $name = 'wps:pushstatic';
+
+	/**
+	 * The console command description.
+	 *
+	 * @var string
+	 */
+	protected $description = 'Push static files to Amazon S3.';
+
+	/**
+	 * Create a new command instance.
+	 *
+	 * @return void
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+	}
+
+	/**
+	 * Execute the console command.
+	 *
+	 * @return void
+	 */
+	public function fire()
+	{
+		$this->_base_dir = __DIR__ . '/../../public/';
+
+		$now = time();
+
+		$version_exists = Cdn::isFile(Config::get('app.version') . '/assets/css/common.css', true);
+		
+		// Validate that version doesn't exist!
+		if ($version_exists) {
+
+			// Version exists. Ask user if he wants to continue...
+			if (!$this->confirm('Version ' . Config::get('app.version') . ' already exists. Do you wish to continue? [yes|no]')) {
+			    
+			    $this->line('End.');
+			    exit;
+			}
+		}
+
+		if ($this->option('minify') == 'yes') {
+			$this->call('wps:minifycss');
+			$this->call('wps:minifyjs');
+		}
+
+		//
+		switch ($this->option('type')) {
+
+			case 'css':
+				$this->_push('CSS', 'assets/css/');
+				break;
+
+			case 'fonts':
+				$this->_push('Fonts', 'assets/fonts/');
+				break;
+
+			case 'img':
+				$this->_push('Images', 'assets/img/');
+				break;
+
+			case 'js':
+				$this->_push('Javascripts', 'assets/js/');
+				break;
+
+			case 'plugins':
+				$this->_push('Plugins', 'assets/plugins/');
+				break;
+
+			case 'favicons':
+				$this->_push('Favicons', 'favicons/');
+				break;
+
+			case 'mathjax':
+				$this->_push('MathJax', 'assets/mathjax/');
+				break;
+
+			default:
+				$this->_push('CSS', 'assets/css/');
+				$this->_push('Fonts', 'assets/fonts/');
+				$this->_push('Images', 'assets/img/');
+				$this->_push('Javascripts', 'assets/js/');
+				$this->_push('Plugins', 'assets/plugins/');
+				$this->_push('Favicons', 'favicons/');
+				$this->line('Warning! Option --type=all doesn\'t push mathjax. You got to push it manually: php artisan wps:pushstatic --type=mathjax --env=dev|staging|production');
+				break;
+		}
+
+		$diff = \Carbon\Carbon::createFromTimeStamp($now)->diffForHumans();
+		$this->info('Command started ' . $diff);
+	}
+
+	/**
+	 * Push files
+	 *
+	 */
+	private function _push($title, $dir_to_scan)
+	{
+		$this->info('Pushing ' . $title . '...');
+
+		if ($title == 'MathJax') {
+
+			Cdn::uploadDirectory(
+				$this->_base_dir . $dir_to_scan, 
+				$dir_to_scan,
+				true
+			);
+
+		} else {
+
+			Cdn::uploadDirectory(
+				$this->_base_dir . $dir_to_scan, 
+				Config::get('app.version') . '/' . $dir_to_scan,
+				true
+			);
+		}
+
+	} // _pushCss()
+
+	/**
+	 * Get the console command options.
+	 *
+	 * @return array
+	 */
+	protected function getOptions()
+	{
+		return array(
+			array('type', null, InputOption::VALUE_REQUIRED, 'all,css,fonts,img,js,plugins,favicons,mathjax', null),
+			array('minify', null, InputOption::VALUE_OPTIONAL, 'yes,no', null),
+		);
+	}
+
+}

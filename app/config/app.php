@@ -113,6 +113,7 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
+		'EllipseSynergie\LaravelHelper\LaravelHelperServiceProvider'			
 
 	),
 
@@ -178,6 +179,9 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
+		'AjaxRequest'     => 'EllipseSynergie\LaravelHelper\Facades\AjaxRequest',
+		'Assets'          => 'EllipseSynergie\LaravelHelper\Facades\Assets',
+		'CDN'             => 'EllipseSynergie\LaravelHelper\Facades\CDN'	
 
 	),
 

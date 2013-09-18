@@ -13,7 +13,7 @@
 	"suggest": {
         "jschr/bootstrap-modal": "Javascript plugin used to add functionalities to the default modal",
         "eternicode/bootstrap-datepicker": "Javascript datepicker for twitter bootstrap",
-        "jdewit/bootstrap-timepicker": "Javascript timepicker for twitter bootstrap",
+        "jdewit/bootstrap-timepicker": "Javascript timepicker for twitter bootstrap"
     },
 	"autoload": {
 		"classmap": [

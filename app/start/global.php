@@ -79,7 +79,7 @@ App::down(function()
 */
 App::missing(function($exception)
 {
-	return Response::view('layout', array('content' => View::make('404')), 404);
+	return Response::view('layouts.default', array('content' => View::make('404')), 404);
 });
 
 /*
