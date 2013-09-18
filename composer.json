@@ -4,11 +4,17 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.0.*"
+		"laravel/framework": "4.0.*",
+        "intervention/image": "1.4.*",
+        "ellipsesynergie/backenator": "dev-master",
+        "aws/aws-sdk-php": "2.4.*",
+        "twbs/bootstrap": "3.*"
 	},
 	"autoload": {
 		"classmap": [
 			"app/commands",
+			"app/libraries",
+			"app/helpers",
 			"app/controllers",
 			"app/models",
 			"app/database/migrations",
@@ -24,10 +30,14 @@
 			"php artisan clear-compiled"
 		],
 		"post-update-cmd": [
-			"php artisan optimize"
+			"php artisan optimize",
+			"rm -R public/assets/plugins/bootstrap/",
+			"cp -R vendor/twbs/bootstrap/dist public/assets/plugins/bootstrap/",
+			"cp -R vendor/twbs/bootstrap/assets/js public/assets/plugins/bootstrap/plugins"
 		],
 		"post-create-project-cmd": [
-			"php artisan key:generate"
+			"php artisan key:generate",
+			"./init.sh"
 		]
 	},
 	"config": {
