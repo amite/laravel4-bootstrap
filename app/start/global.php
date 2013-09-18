@@ -71,6 +71,36 @@ App::down(function()
 
 /*
 |--------------------------------------------------------------------------
+| Page not found
+|--------------------------------------------------------------------------
+|
+*/
+App::missing(function($exception)
+{
+	return Response::view('layout', array('content' => View::make('404')), 404);
+});
+
+/*
+|--------------------------------------------------------------------------
+| Register event listener for database query
+|-------------------------------------------------------------------------
+*/
+Event::listen('illuminate.query', function($query, $bindings, $time, $name)
+{
+
+	//If the pofiler is enabled
+	if (Config::get("database.profile") == true) {
+
+		//Build the profile string
+		$string = $query . ' | ' . json_encode($bindings) . ' | ' . $time . ' | ' . $name;
+
+		//Log the query into file
+		File::append(storage_path() . '/logs/sql-' . date('Y-m-d') . '.log', date('Y-m-d H:i:s').' - ' . $string . PHP_EOL);
+	}
+});
+
+/*
+|--------------------------------------------------------------------------
 | Require The Filters File
 |--------------------------------------------------------------------------
 |
