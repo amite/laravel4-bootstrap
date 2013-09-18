@@ -5,10 +5,10 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.0.*",
-        "intervention/image": "1.4.*",
-        "ellipsesynergie/backenator": "dev-master",
-        "aws/aws-sdk-php": "2.4.*",
-        "twbs/bootstrap": "3.*"
+		"intervention/image": "1.4.*",
+		"ellipsesynergie/backenator": "1.*",
+		"aws/aws-sdk-php": "2.4.*",
+		"twbs/bootstrap": "3.*"
 	},
 	"autoload": {
 		"classmap": [
