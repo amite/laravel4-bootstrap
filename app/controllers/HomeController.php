@@ -17,6 +17,23 @@ class HomeController extends BaseController {
 
 	public function showWelcome()
 	{
+		Assets::addJs('assets/js/home.js');
 		$this->layout->content = View::make('home');
+	}
+	
+	/**
+	 * Hearbeat the application via AJAX request
+	 */
+	public function getHeartbeat()
+	{
+		return Response::json('Heartbeat !!!');
+	}
+	
+	/**
+	 * Usage example for ajax request
+	 */
+	public function getAjaxExample()
+	{
+		return Response::json(Ajax::response(array('content' => 'Homepage content loaded via ajax request')));
 	}
 }

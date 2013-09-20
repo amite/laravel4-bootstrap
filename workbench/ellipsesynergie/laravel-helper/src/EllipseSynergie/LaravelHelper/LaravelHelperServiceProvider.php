@@ -2,7 +2,7 @@
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;
-use EllipseSynergie\LaravelHelper\Helper\AjaxRequest;
+use EllipseSynergie\LaravelHelper\Helper\Ajax;
 use EllipseSynergie\LaravelHelper\Helper\Assets;
 use EllipseSynergie\LaravelHelper\Helper\AwsS3;
 
@@ -43,7 +43,7 @@ class LaravelHelperServiceProvider extends ServiceProvider {
 		);
 		
 		//Create the Ajax object
-		$this->app['ajaxrequest'] = new AjaxRequest();
+		$this->app['ajax'] = new Ajax();
 		
 		//Create the Assets object
 		$this->app['assets'] = new Assets();

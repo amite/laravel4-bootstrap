@@ -12,3 +12,5 @@
 */
 
 Route::get('/', 'HomeController@showWelcome');
+Route::get('ajax', 'HomeController@getAjaxExample');
+Route::get('heartbeat', 'HomeController@getHeartbeat');

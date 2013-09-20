@@ -182,7 +182,7 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-		'AjaxRequest'     => 'EllipseSynergie\LaravelHelper\Facades\AjaxRequest',
+		'Ajax'    	      => 'EllipseSynergie\LaravelHelper\Facades\Ajax',
 		'Assets'          => 'EllipseSynergie\LaravelHelper\Facades\Assets',
 		'CDN'             => 'EllipseSynergie\LaravelHelper\Facades\CDN'	
 

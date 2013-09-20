@@ -3,17 +3,17 @@
 use Illuminate\Support\Facades\Facade;
 
 /**
- * Facade for Assets
+ * Facade for Ajax request
  *
  * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
-class Assets extends Facade
+class Ajax extends Facade
 {
 	/**
 	 * Get the registered component.
 	 *
 	 * @return object
 	 */
-	protected static function getFacadeAccessor(){ return 'assets'; }
+	protected static function getFacadeAccessor(){ return 'ajax'; }
 
 }
