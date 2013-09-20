@@ -1,7 +1,7 @@
 <?php namespace EllipseSynergie\LaravelHelper\Helper;
 
 /**
- * Ajax Helper
+ * Ajax request Helper
  *
  * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
@@ -19,9 +19,9 @@ class AjaxRequest {
 	 * string content
 	 * @param bool $response_object
 	 * 
-	 * @return Response|string
+	 * @return array()
 	 */
-	public function jsonResponse(array $options = array())
+	public function formatResponse(array $options = array())
 	{							
 		//The data to return
 		return array(
@@ -33,6 +33,6 @@ class AjaxRequest {
 			'redirect' => isset($options['redirect']) ? $options['redirect'] : null
 		);
 		
-	} //jsonResponse()
+	} //formatResponse()
 	
 } //AjaxHelper

@@ -28,7 +28,30 @@ class LaravelCommandServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		//Add command to the application
+		$this->app['ellipse:minifycss'] = $this->app->share(function($app)
+		{
+			return new Command\MinifyCssCommand($app);
+		});
+		
+		//Add command to the application
+		$this->app['ellipse:minifyjs'] = $this->app->share(function($app)
+		{
+			return new Command\MinifyJsCommand($app);
+		});
+		
+		//Add command to the application
+		$this->app['ellipse:pushtostatic'] = $this->app->share(function($app)
+		{
+			return new Command\PushStaticToStorageCommand($app);
+		});
+		
+		//Add commands
+		$this->commands(
+			'ellipse:minifycss',
+			'ellipse:minifyjs',
+			'ellipse:pushtostatic'
+		);
 	}
 
 	/**

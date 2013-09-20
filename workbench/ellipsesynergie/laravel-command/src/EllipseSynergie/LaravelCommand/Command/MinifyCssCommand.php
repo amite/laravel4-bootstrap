@@ -1,8 +1,9 @@
-<?php
+<?php namespace EllipseSynergie\LaravelCommand\Command;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Illuminate\Support\Facades\Config;
 
 class MinifyCssCommand extends Command {
 
@@ -11,7 +12,7 @@ class MinifyCssCommand extends Command {
 	 *
 	 * @var string
 	 */
-	protected $name = 'wps:minifycss';
+	protected $name = 'ellipse:minifycss';
 
 	/**
 	 * The console command description.
@@ -21,21 +22,18 @@ class MinifyCssCommand extends Command {
 	protected $description = 'Minify and packing CSS.';
 
 	/**
-	 * Path to CSS files
+	 * Path to assets folder
 	 *
 	 * @var string
 	 */
-	protected $_path_to_css = '';
+	protected $_assetsDirectory;
 
 	/**
-	 * Create a new command instance.
+	 * Path to css folder
 	 *
-	 * @return void
+	 * @var string
 	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
+	protected $_directories;
 
 	/**
 	 * Execute the console command.
@@ -44,7 +42,8 @@ class MinifyCssCommand extends Command {
 	 */
 	public function fire()
 	{
-		$this->_path_to_assets = Config::get('minify.path_to_assets');
+		$this->_assetsDirectory = Config::get('laravelcommand::minify.assetsDirectory');
+		$this->_directories = Config::get('laravelcommand::minify.css.directories');
 		$this->_minify();
 		$this->_pack();
 	}
@@ -57,9 +56,9 @@ class MinifyCssCommand extends Command {
 	{
 		$this->info("Minifying...");
 
-		foreach (Config::get('minify.css.path_to_scan') as $path_to_scan) {
+		foreach ($this->_directories as $folder) {
 
-			foreach (File::allFiles($this->_path_to_assets . '/' . $path_to_scan) as $file) {
+			foreach (File::allFiles($this->_assetsDirectory . '/' . $folder) as $file) {
 
 				$in = $file->getPathname();
 
@@ -85,9 +84,9 @@ class MinifyCssCommand extends Command {
 	 */
 	private function _pack()
 	{
-		foreach (Config::get('minify.css.packages') as $package => $files) {
+		foreach (Config::get('laravelcommand::minify.css.packages') as $package => $files) {
 
-			$package = $this->_path_to_assets . '/' . $package;
+			$package = $this->_assetsDirectory . '/' . $package;
 
 			// 
 			$this->info("Packing " . $package);
@@ -96,12 +95,11 @@ class MinifyCssCommand extends Command {
 			File::delete($package);
 
 			foreach ($files as $file) {
-				$file = $this->_path_to_assets . '/' . $file;
+				$file = $this->_assetsDirectory . '/' . $file;
 				$this->line("\tAppending " . $file . "...");
 				File::append($package, File::get($file));
 			}
 		}
 
 	} // _pack()
-
 }

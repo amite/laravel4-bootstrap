@@ -1,6 +1,4 @@
-<?php 
-
-namespace Security;
+<?php namespace EllipseSynergie\LaravelSecurity\Security;
 
 use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Role\GenericRole;
@@ -84,6 +82,7 @@ class Permissions
 	/**
 	 * Check if the user have access to the specific resource
 	 * 
+	 * @todo refactore this
 	 * @param int $id
 	 * @param string optional $resource
 	 */
@@ -105,6 +104,7 @@ class Permissions
 	/**
 	 * Get the reponse we need the return when a user has no access to the specific ressource
 	 * 
+	 * @todo refactore this
 	 * @return Response
 	 */
 	public function noResourceAccessResponse()

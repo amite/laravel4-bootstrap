@@ -113,7 +113,10 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-		'EllipseSynergie\LaravelHelper\LaravelHelperServiceProvider'			
+		'EllipseSynergie\LaravelHelper\LaravelHelperServiceProvider',
+		'EllipseSynergie\LaravelCommand\LaravelCommandServiceProvider',
+		'EllipseSynergie\LaravelDatabase\LaravelDatabaseServiceProvider',
+		'EllipseSynergie\LaravelSecurity\LaravelSecurityServiceProvider'
 
 	),
 

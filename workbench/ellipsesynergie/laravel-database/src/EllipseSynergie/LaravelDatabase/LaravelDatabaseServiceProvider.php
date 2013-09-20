@@ -1,6 +1,7 @@
 <?php namespace EllipseSynergie\LaravelDatabase;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\DB;
 
 class LaravelDatabaseServiceProvider extends ServiceProvider {
 
@@ -29,6 +30,14 @@ class LaravelDatabaseServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		//
+		DB::extend('mysql-cluster', function($config){
+		
+			//Create the connection factory
+			$factory = new MysqlCluster\ConnectionFactory(new Illuminate\Container\Container);
+		
+			//Return the connection
+			return $factory->make($config, 'mysql');
+		});
 	}
 
 	/**

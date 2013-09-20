@@ -1,8 +1,9 @@
-<?php
+<?php namespace EllipseSynergie\LaravelCommand\Command;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Illuminate\Support\Facades\Config;
 
 class MinifyJsCommand extends Command {
 
@@ -11,24 +12,28 @@ class MinifyJsCommand extends Command {
 	 *
 	 * @var string
 	 */
-	protected $name = 'wps:minifyjs';
+	protected $name = 'ellipse:minifyjs';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Minify Js.';
+	protected $description = 'Minify and packing Javascript.';
 
 	/**
-	 * Create a new command instance.
+	 * Path to assets directory
 	 *
-	 * @return void
+	 * @var string
 	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
+	protected $_assetsDirectory;
+
+	/**
+	 * Path to javascript directories
+	 * 
+	 * @var string
+	 */
+	protected $_directories;
 
 	/**
 	 * Execute the console command.
@@ -41,8 +46,9 @@ class MinifyJsCommand extends Command {
 		$returnVal = shell_exec("which uglifyjs");
 		
 		if (!empty($returnVal)) {
-
-			$this->_path_to_assets = Config::get('minify.path_to_assets');
+			
+			$this->_assetsDirectory = Config::get('laravelcommand::minify.assetsDirectory');
+			$this->_directories = Config::get('laravelcommand::minify.js.directories');
 
 			$this->_minify();
 			$this->_pack();
@@ -61,9 +67,9 @@ class MinifyJsCommand extends Command {
 	{
 		$this->info("Minifying...");
 
-		foreach (Config::get('minify.js.path_to_scan') as $path_to_scan) {
+		foreach ($this->_directories as $folder) {
 
-			foreach (File::allFiles($this->_path_to_assets . '/' . $path_to_scan) as $file) {
+			foreach (File::allFiles($this->_assetsDirectory . '/' . $folder) as $file) {
 
 				$in = $file->getPathname();
 
@@ -89,7 +95,7 @@ class MinifyJsCommand extends Command {
 	{
 		foreach (Config::get('minify.js.packages') as $package => $files) {
 
-			$package = $this->_path_to_assets . '/' . $package;
+			$package = $this->_assetsDirectory . '/' . $package;
 
 			// 
 			$this->info("Packing " . $package);
@@ -98,7 +104,7 @@ class MinifyJsCommand extends Command {
 			File::delete($package);
 
 			foreach ($files as $file) {
-				$file = $this->_path_to_assets . '/' . $file;
+				$file = $this->_assetsDirectory . '/' . $file;
 				$this->line("\tAppending " . $file . "...");
 				File::append($package, File::get($file));
 			}

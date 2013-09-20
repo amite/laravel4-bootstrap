@@ -1,6 +1,4 @@
-<?php 
-
-namespace MysqlCluster;
+<?php namespace EllipseSynergie\LaravelDatabase\MysqlCluster;
 
 use \PDO;
 use Illuminate\Database\Connectors\ConnectionFactory as Factory;

@@ -28,7 +28,13 @@ class LaravelSecurityServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		$this->app['permissions'] = $this->app->share(function($app)
+		{
+			return new Security\Permissions(
+				$app['config']->get('auth.roles'),
+				$app['router']->getRoutes()->all()
+			);
+		});
 	}
 
 	/**

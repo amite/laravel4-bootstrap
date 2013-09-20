@@ -1,6 +1,4 @@
-<?php 
-
-namespace MysqlCluster;
+<?php namespace EllipseSynergie\LaravelDatabase\MysqlCluster;
 
 use Illuminate\Database\MySqlConnection;
 
