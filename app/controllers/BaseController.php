@@ -20,19 +20,10 @@ class BaseController extends Controller {
 		{
 			$this->layout = View::make($this->layout);
 			
-			//Ajouter un object 
+			// Default layout data
 			$this->layout->head = new stdClass;
 			$this->layout->head->title = '';
-			//$this->layout->head->description = Lang::get('app.head.description');
-			
-			//Check echoinc-frontend
-			
-
 			$this->layout->content = '';
 		}
-		
-		//Add common.css automaticly
-		#Assets::addCss('assets/css/common.css');
 	}
-
 }
