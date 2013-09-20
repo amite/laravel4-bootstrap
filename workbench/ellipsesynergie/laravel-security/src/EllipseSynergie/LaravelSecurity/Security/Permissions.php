@@ -5,12 +5,12 @@ use Zend\Permissions\Acl\Role\GenericRole;
 use Zend\Permissions\Acl\Resource\GenericResource;
 
 /**
- * This is the ACL component use to handle permissions on the laravel application.
- * We use zendframework/zend-permissions-acl packages in the back.
+ * This is the Permissions ACL library
+ *
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
 class Permissions
-{
-	
+{	
 	/**
 	 * The acl object
 	 * @var Zend\Permissions\Acl\Acl
@@ -24,18 +24,15 @@ class Permissions
 	 * @param array $resources
 	 */
 	public function __construct($roles, $resources)
-	{
-		//Create the resource library used to check if a user have access to a specific resource
-		$this->resource = new Resource;
-		
+	{		
 		//Create brand new Acl object
 		$this->acl = new Acl();
 		
 		//Add each resources
-		foreach ($resources as  $name => $route){
+		foreach ($resources as  $route){
 			
 			//Add the resource
-			$this->acl->addResource(new GenericResource($name));
+			$this->acl->addResource(new GenericResource($route));
 		}
 		
 		//Add each roles
@@ -77,44 +74,5 @@ class Permissions
 		}
 		
 		return false;		
-	}
-	
-	/**
-	 * Check if the user have access to the specific resource
-	 * 
-	 * @todo refactore this
-	 * @param int $id
-	 * @param string optional $resource
-	 */
-	public function hasResourceAccess($id, $resource = null)
-	{		
-
-		//WARNING TEMPORARY ADD THIS FOR TESTING ENVIRONNEMENT
-		//@todo REMOVE THIS AND REPLACE Token helper by a facade
-		if(\App::environment() === 'testing'){
-			return true;
-		}
-		
-		//Get the user associate to the token
-		list($token_data, $user) = \Token::get(\Input::get('token'));
-		
-		return $this->resource->hasAccess($user, $id, $resource);		
-	}
-	
-	/**
-	 * Get the reponse we need the return when a user has no access to the specific ressource
-	 * 
-	 * @todo refactore this
-	 * @return Response
-	 */
-	public function noResourceAccessResponse()
-	{
-		$result = array(
-			'uri' => \Request::server('request_uri'),
-			'success' => false,
-			'errors' => array(\Config::get('error.generic.resource_not_allowed'))
-		);
-		
-		return \Response::json($result, \Config::get('http.error.unauthorized'), array('X-Time' => number_format((microtime(true) - LARAVEL_START), 5)));
 	}
 }

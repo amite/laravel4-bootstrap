@@ -2,6 +2,11 @@
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Package service provider
+ *
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
+ */
 class LaravelSecurityServiceProvider extends ServiceProvider {
 
 	/**
@@ -31,7 +36,7 @@ class LaravelSecurityServiceProvider extends ServiceProvider {
 		$this->app['permissions'] = $this->app->share(function($app)
 		{
 			return new Security\Permissions(
-				$app['config']->get('auth.roles'),
+				$app['config']->get('laravel-security::security.roles'),
 				$app['router']->getRoutes()->all()
 			);
 		});
@@ -46,5 +51,4 @@ class LaravelSecurityServiceProvider extends ServiceProvider {
 	{
 		return array();
 	}
-
 }

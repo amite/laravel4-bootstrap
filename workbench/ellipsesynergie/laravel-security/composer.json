@@ -1,6 +1,6 @@
 {
     "name": "ellipsesynergie/laravel-security",
-    "description": "",
+    "description": "Laravel package use to handle resources permissions",
     "authors": [
         {
             "name": "Maxime Beaudoin",
@@ -12,6 +12,9 @@
         "illuminate/support": "4.0.x",
 		"zendframework/zend-permissions-acl": "2.1.*"
         
+    },
+    "require-dev": {
+        "mockery/mockery": "dev-master"
     },
     "autoload": {
         "classmap": [
