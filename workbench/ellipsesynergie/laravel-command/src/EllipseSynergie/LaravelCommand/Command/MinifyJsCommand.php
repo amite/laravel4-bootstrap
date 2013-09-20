@@ -4,7 +4,14 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\File;
 
+/**
+ * Package service provider
+ *
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
+ * @author Dominic Martineau <dominic.martineau@ellipse-synergie.com>
+ */
 class MinifyJsCommand extends Command {
 
 	/**
@@ -47,11 +54,16 @@ class MinifyJsCommand extends Command {
 		
 		if (!empty($returnVal)) {
 			
-			$this->_assetsDirectory = Config::get('laravelcommand::minify.assetsDirectory');
-			$this->_directories = Config::get('laravelcommand::minify.js.directories');
+			$this->_assetsDirectory = Config::get('laravel-command::minify.assetsDirectory');
+			$this->_directories = Config::get('laravel-command::minify.js.directories');
 
-			$this->_minify();
-			$this->_pack();
+			//Try to minify CSS
+			$result = $this->_minify();
+			
+			//If the minicy success, pack thme
+			if($result){
+				if($this->_pack()) $this->info('Packing success');
+			}
 
 		} else {
 
@@ -66,6 +78,12 @@ class MinifyJsCommand extends Command {
 	private function _minify()
 	{
 		$this->info("Minifying...");
+			
+		//If we don't have directories to scan
+		if(empty($this->_directories)){
+			$this->error('No javascript directories to scan');
+			return false;
+		}
 
 		foreach ($this->_directories as $folder) {
 
@@ -84,6 +102,8 @@ class MinifyJsCommand extends Command {
 				}
 			}
 		}
+		
+		return true;
 
 	} // _minify()
 
@@ -93,7 +113,16 @@ class MinifyJsCommand extends Command {
 	 */
 	private function _pack()
 	{
-		foreach (Config::get('minify.js.packages') as $package => $files) {
+		//Get package
+		$packages = Config::get('laravel-command::minify.js.packages');
+		
+		//If we don't have packages to scan
+		if(empty($packages)){
+			$this->error('No Javascript packages to create');
+			return false;
+		}
+		
+		foreach ($packages as $package => $files) {
 
 			$package = $this->_assetsDirectory . '/' . $package;
 

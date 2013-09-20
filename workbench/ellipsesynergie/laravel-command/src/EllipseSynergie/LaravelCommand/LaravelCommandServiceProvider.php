@@ -2,6 +2,11 @@
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Package service provider
+ *
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
+ */
 class LaravelCommandServiceProvider extends ServiceProvider {
 
 	/**

@@ -13,8 +13,8 @@ return array(
         'packages' => array(
 
             // Default layout
-            'css/layouts/default.pack.css' => array(
-                'plugins/bootstrap/css/bootstrap.min.css'
+            'css/common.pack.css' => array(
+                'css/common.min.css'
             )
         ),
     ),
@@ -28,8 +28,8 @@ return array(
         'packages' => array(
 
             // Default layout
-            'js/default.pack.js' => array(
-                'plugins/bootstrap/js/bootstrap.min.js',
+            'js/common.pack.js' => array(
+                'js/console.min.js',
             )
         )
     )

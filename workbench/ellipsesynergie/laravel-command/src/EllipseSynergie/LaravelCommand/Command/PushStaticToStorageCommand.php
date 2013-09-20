@@ -4,6 +4,12 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+/**
+ * Package service provider
+ *
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
+ * @author Dominic Martineau <dominic.martineau@ellipse-synergie.com>
+ */
 class PushStaticToStorageCommand extends Command {
 
 	/**

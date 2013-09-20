@@ -4,7 +4,14 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\File;
 
+/**
+ * Package service provider
+ *
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
+ * @author Dominic Martineau <dominic.martineau@ellipse-synergie.com>
+ */
 class MinifyCssCommand extends Command {
 
 	/**
@@ -42,10 +49,17 @@ class MinifyCssCommand extends Command {
 	 */
 	public function fire()
 	{
-		$this->_assetsDirectory = Config::get('laravelcommand::minify.assetsDirectory');
-		$this->_directories = Config::get('laravelcommand::minify.css.directories');
-		$this->_minify();
-		$this->_pack();
+		//Get config
+		$this->_assetsDirectory = Config::get('laravel-command::minify.assetsDirectory');
+		$this->_directories = Config::get('laravel-command::minify.css.directories');
+		
+		//Try to minify CSS
+		$result = $this->_minify();
+		
+		//If the minicy success, pack thme
+		if($result){
+			if($this->_pack()) $this->info('Packing success');
+		}
 	}
 
 	/**
@@ -55,6 +69,12 @@ class MinifyCssCommand extends Command {
 	private function _minify()
 	{
 		$this->info("Minifying...");
+		
+		//If we don't have directories to scan
+		if(empty($this->_directories)){
+			$this->error('No css directories to scan');
+			return false;
+		}
 
 		foreach ($this->_directories as $folder) {
 
@@ -75,6 +95,8 @@ class MinifyCssCommand extends Command {
 				}
 			}
 		}
+		
+		return true;
 
 	} // _minify()
 
@@ -84,7 +106,17 @@ class MinifyCssCommand extends Command {
 	 */
 	private function _pack()
 	{
-		foreach (Config::get('laravelcommand::minify.css.packages') as $package => $files) {
+		
+		//Get package
+		$packages = Config::get('laravel-command::minify.css.packages');
+		
+		//If we don't have packages to scan
+		if(empty($packages)){
+			$this->error('No CSS packages to create');
+			return false;
+		}
+		
+		foreach ($packages as $package => $files) {
 
 			$package = $this->_assetsDirectory . '/' . $package;
 
@@ -100,6 +132,8 @@ class MinifyCssCommand extends Command {
 				File::append($package, File::get($file));
 			}
 		}
+		
+		return true;
 
 	} // _pack()
 }
