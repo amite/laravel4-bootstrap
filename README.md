@@ -1,29 +1,39 @@
-# Laravel 4 Bootstrap
+# Laravel 4 bootstrap
 
-A Laravel 4 bootstrap project including a layout, a homepage, a 404 page, jQuery, css minifier, js packer, helper and more
+A Laravel 4 bootstrap project including a layout, a homepage, a 404 page, jQuery, css minifier, js packer, helper and more.
 
-## Layout
+### Status
 
-## Pages
+[![Build Status](https://travis-ci.org/ellipsesynergie/laravel4-bootstrap.png?branch=master)](https://travis-ci.org/ellipsesynergie/laravel4-bootstrap)
+[![Total Downloads](https://poser.pugx.org/ellipsesynergie/laravel4-bootstrap/downloads.png)](https://packagist.org/packages/ellipsesynergie/laravel4-bootstrap)
+[![Latest Stable Version](https://poser.pugx.org/ellipsesynergie/laravel4-bootstrap/v/stable.png)](https://packagist.org/packages/ellipsesynergie/laravel4-bootstrap)
 
-### Homepage
+## Documentation
 
-### 404
+##Installation
 
-## Helpers
+Begin by installing this package through Composer. Edit your project's `composer.json` file to require `ellipsesynergie/laravel4-bootstrap`.
 
-## Assets
+```javascript
+{
+    "require": {
+        "ellipsesynergie/laravel4-bootstrap": "dev-master"
+    }
+}
+```
 
-### Javascripts
+Update your packages with `composer update` or install with `composer install`.
 
-### CSS
+Once this operation completes, you need to add the service provider. Open `app/config/app.php`, and add a new item to the providers array.
 
-### Images
+```php
+EllipseSynergie\LaravelHelper\LaravelHelperServiceProvider
+```
 
-## Authors
+##Configurations
 
-[@ellipsesynergie](http://github.com/ellipsesynergie)
+To configure the package to meet your needs, you must publish the configuration in your application before you can modify them. Run this artisan command.
 
-## License
-
-MIT
+```bash
+php artisan config:publish ellipsesynergie/laravel4-bootstrap
+```

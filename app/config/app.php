@@ -184,7 +184,7 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Ajax'    	      => 'EllipseSynergie\LaravelHelper\Facades\Ajax',
 		'Assets'          => 'EllipseSynergie\LaravelHelper\Facades\Assets',
-		'CDN'             => 'EllipseSynergie\LaravelHelper\Facades\CDN'	
+		#'AwsS3'             => 'EllipseSynergie\LaravelHelper\Facades\AwsS3'	
 
 	),
 
