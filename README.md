@@ -4,7 +4,7 @@ A Laravel 4 bootstrap project including a layout, a homepage, a 404 page, jQuery
 
 ### Status
 
-[![Build Status](https://travis-ci.org/ellipsesynergie/laravel4-bootstrap.png?branch=master)](https://travis-ci.org/ellipsesynergie/laravel4-bootstrap)
+[![Build Status](https://travis-ci.org/laravel/framework.png)](https://travis-ci.org/laravel/framework)
 [![Total Downloads](https://poser.pugx.org/ellipsesynergie/laravel4-bootstrap/downloads.png)](https://packagist.org/packages/ellipsesynergie/laravel4-bootstrap)
 [![Latest Stable Version](https://poser.pugx.org/ellipsesynergie/laravel4-bootstrap/v/stable.png)](https://packagist.org/packages/ellipsesynergie/laravel4-bootstrap)
 
