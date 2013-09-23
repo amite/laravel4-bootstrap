@@ -8,18 +8,20 @@
 class Assets {
 	
 	/**
-	 * Assets base url
-	 * 
-	 * @var string
-	 */
-	protected $_baseUrl = 'assets/';
-	
-	/**
 	 * Assets collections
 	 * 
 	 * @var array
 	 */
 	protected $_collections = array();
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param array $config
+	 */
+	public function __construct($config){
+		$this->config = $config;
+	}
 	
 	/**
 	 * Add one ore more css file
@@ -121,10 +123,54 @@ class Assets {
 		}
 		
 		return null;
-	}	
+	}
+	
+	/**
+	 * Add timestamp to the assets using the last modified time of the file
+	 * 
+	 * @param string $uri
+	 * @return string
+	 */
+	public function versionized($uri, $baseUrl = null){	
+
+		//If we provide a custom url
+		if ($baseUrl) {
+			
+			//
+			$url = $baseUrl . '/' . $uri;
+
+		//ELse
+		} else {	
+
+			//Generate the full url
+			$url = URL::to($uri);
+		}
+		
+		return  $url . '?v=' . filemtime(base_path() . '/public/' . $uri);		
+	}
+	
+	/**
+	 * Build URL pointing to the storage
+	 *
+	 * @param string $uri
+	 * @return string
+	 */
+	public static function storage($uri)
+	{	
+		//By default we take the S3 bucket
+		$baseUrl = $this->config['storage']['bucket'];
+	
+		// If we have a CDN
+		if ($this->config['cdn']['enabled'] === true) {
+			$baseUrl = $this->config['cdn']['url'];
+		}
+	
+		return $this->versionized($uri, $baseUrl = null);
+	
+	} // storage()
 
 	/**
-	 * Reset
+	 * Reset the collections
 	 */
 	public function reset()
 	{

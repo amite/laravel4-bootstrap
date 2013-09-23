@@ -46,7 +46,7 @@ class LaravelHelperServiceProvider extends ServiceProvider {
 		$this->app['ajax'] = new Ajax();
 		
 		//Create the Assets object
-		$this->app['assets'] = new Assets();
+		$this->app['assets'] = new Assets(Config::get('laravel-helper::assets'));
 	}
 
 	/**
