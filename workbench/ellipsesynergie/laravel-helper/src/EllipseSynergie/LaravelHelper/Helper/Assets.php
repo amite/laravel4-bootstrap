@@ -15,12 +15,35 @@ class Assets {
 	protected $_collections = array();
 	
 	/**
+	 * Assets configurations
+	 *  
+	 * @var array
+	 */
+	public $config;
+	
+	/**
+	 * The base url for assets
+	 *  
+	 * @var string
+	 */
+	public $baseUrl;
+	
+	/**
+	 * Base path where the assets files are stored
+	 *  
+	 * @var string
+	 */
+	public $basePath;
+	
+	/**
 	 * Constructor
 	 * 
 	 * @param array $config
 	 */
-	public function __construct($config){
+	public function __construct($config, $baseUrl, $basePath){
 		$this->config = $config;
+		$this->baseUrl = $baseUrl;
+		$this->basePath = $basePath;
 	}
 	
 	/**
@@ -50,7 +73,7 @@ class Assets {
 	 * 
 	 * @param string $files
 	 * @param string $type
-	 * @return boolean
+	 * @return Assets
 	 */
 	public function add($files, $type)
 	{
@@ -62,12 +85,13 @@ class Assets {
 			$this->_collections[$type][] = $file;
 		}
 		
-		return true;
+		return $this;
 	}
 	
 	/**
 	 * Render css files
 	 * 
+	 * @param string $format
 	 * @return string
 	 */
 	public function renderCss($format = '<link rel="stylesheet" href="{{url}}" type="text/css">')
@@ -78,6 +102,7 @@ class Assets {
 	/**
 	 * Render js files
 	 *
+	 * @param string $format
 	 * @return string
 	 */
 	public function renderJs($format = '<script src="{{url}}"></script>')
@@ -88,6 +113,8 @@ class Assets {
 	/**
 	 * Renders CSS/JS files (returns HTML tags)
 	 * 
+	 * @param string|array $type
+	 * @param string $format
 	 * @return string|null
 	 */
 	public function render($type, $format)
@@ -111,7 +138,7 @@ class Assets {
 		
 				foreach($collection as $file)
 				{
-					$response[] = str_replace('{{url}}', $file, $format);
+					$response[] = str_replace('{{url}}', $this->versionized($file), $format);
 				}
 			}
 				
@@ -121,14 +148,13 @@ class Assets {
 		if (!empty($response)) {
 			return implode(PHP_EOL, $response);
 		}
-		
-		return null;
 	}
 	
 	/**
 	 * Add timestamp to the assets using the last modified time of the file
 	 * 
 	 * @param string $uri
+	 * @param string $baseUrl
 	 * @return string
 	 */
 	public function versionized($uri, $baseUrl = null){	
@@ -140,13 +166,13 @@ class Assets {
 			$url = $baseUrl . '/' . $uri;
 
 		//ELse
-		} else {	
+		} else {
 
 			//Generate the full url
-			$url = URL::to($uri);
+			$url = $this->baseUrl . $uri;
 		}
 		
-		return  $url . '?v=' . filemtime(base_path() . '/public/' . $uri);		
+		return  $url . '?v=' . filemtime($this->basePath . $uri);		
 	}
 	
 	/**
