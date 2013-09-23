@@ -12,28 +12,8 @@ A Laravel 4 bootstrap project including a layout, a homepage, a 404 page, jQuery
 
 ##Installation
 
-Begin by installing this package through Composer. Edit your project's `composer.json` file to require `ellipsesynergie/laravel4-bootstrap`.
+###Via Composer Create-Project
 
-```javascript
-{
-    "require": {
-        "ellipsesynergie/laravel4-bootstrap": "dev-master"
-    }
-}
-```
+You may install Laravel by issuing the Composer create-project command in your terminal:
 
-Update your packages with `composer update` or install with `composer install`.
-
-Once this operation completes, you need to add the service provider. Open `app/config/app.php`, and add a new item to the providers array.
-
-```php
-EllipseSynergie\LaravelHelper\LaravelHelperServiceProvider
-```
-
-##Configurations
-
-To configure the package to meet your needs, you must publish the configuration in your application before you can modify them. Run this artisan command.
-
-```bash
-php artisan config:publish ellipsesynergie/laravel4-bootstrap
-```
+```composer create-project ellipsesynergie/laravel4-bootstrap --prefer-dist```
