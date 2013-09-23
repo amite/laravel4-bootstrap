@@ -6,7 +6,12 @@
 	"require": {
 		"laravel/framework": "4.0.*",
 		"intervention/image": "1.4.*",
-		"ellipsesynergie/backenator": "1.*",
+		"ellipsesynergie/laravel-command": "dev-master",
+		"ellipsesynergie/laravel-database": "dev-master",
+		"ellipsesynergie/laravel-helper": "dev-master",
+		"ellipsesynergie/laravel-security": "dev-master",
+		"ellipsesynergie/laravel-testing": "dev-master",
+		"ellipsesynergie/backenator": "dev-master",
 		"aws/aws-sdk-php": "2.4.*",
 		"twbs/bootstrap": "3.*"
 	},
