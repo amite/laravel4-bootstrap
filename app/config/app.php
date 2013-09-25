@@ -116,7 +116,7 @@ return array(
 		'EllipseSynergie\LaravelHelper\LaravelHelperServiceProvider',
 		'EllipseSynergie\LaravelCommand\LaravelCommandServiceProvider',
 		'EllipseSynergie\LaravelDatabase\LaravelDatabaseServiceProvider',
-		'EllipseSynergie\LaravelSecurity\LaravelSecurityServiceProvider'
+		#'EllipseSynergie\LaravelSecurity\LaravelSecurityServiceProvider'
 
 	),
 
@@ -185,7 +185,7 @@ return array(
 		'Ajax'    	      => 'EllipseSynergie\LaravelHelper\Facades\Ajax',
 		'Assets'          => 'EllipseSynergie\LaravelHelper\Facades\Assets',
 		'AwsS3'           => 'EllipseSynergie\LaravelHelper\Facades\AwsS3',
-		'Javascript'       => 'EllipseSynergie\LaravelHelper\Facades\Javascript'	
+		'Javascript'      => 'EllipseSynergie\LaravelHelper\Facades\Javascript'	
 
 	),
 
