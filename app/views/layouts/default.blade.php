@@ -36,7 +36,7 @@
 	{{ $content }}
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="//code.jquery.com/jquery.js"></script>
+	<script src="//code.jquery.com/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="assets/js/console.js"></script>
