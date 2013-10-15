@@ -6,7 +6,7 @@
 	"require": {
 		"laravel/framework": "4.0.*",
 		"ellipsesynergie/laravel-command": "dev-master",
-		"ellipsesynergie/laravel-database": "dev-master",
+		"ellipsesynergie/orm-validator": "dev-master",
 		"ellipsesynergie/laravel-helper": "dev-master",
 		"ellipsesynergie/laravel-testing": "dev-master",
 		"ellipsesynergie/backenator": "dev-master",
