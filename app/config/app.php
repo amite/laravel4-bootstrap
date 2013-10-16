@@ -114,7 +114,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'EllipseSynergie\LaravelHelper\LaravelHelperServiceProvider',
-		'EllipseSynergie\LaravelCommand\LaravelCommandServiceProvider',
+		'EllipseSynergie\Minify\MinifyServiceProvider',
 		'Cartalyst\Sentry\SentryServiceProvider'
 
 	),
