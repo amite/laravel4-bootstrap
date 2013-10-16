@@ -5,7 +5,7 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.0.*",
-		"ellipsesynergie/laravel-command": "dev-master",
+		"ellipsesynergie/minify": "dev-master",
 		"ellipsesynergie/orm-validator": "dev-master",
 		"ellipsesynergie/laravel-helper": "dev-master",
 		"ellipsesynergie/laravel-testing": "dev-master",
